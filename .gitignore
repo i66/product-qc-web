@@ -1,0 +1,9 @@
+bin/
+obj/
+.idea/
+.vs/
+.DS_Store
+*.userprefs
+packages/
+/HEX.EBox.EX/FirstDoc.xml
+/HEX.EBox.EX/CurrentPolicy
