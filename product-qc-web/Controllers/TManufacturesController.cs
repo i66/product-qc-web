@@ -22,12 +22,11 @@ namespace product_qc_web.Controllers
         public IActionResult Create()
         {
             ViewData["ProductCode"] = new SelectList(_context.TProduct, "ProductCode", "ProductName");
+            ViewData["CurrentServerTime"] = DateTime.Today.ToString("s");
             return View();
         }
 
         // POST: TManufactures/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductCode,WorkOrderNum,MachineNum")] TManufacture tManufacture)
