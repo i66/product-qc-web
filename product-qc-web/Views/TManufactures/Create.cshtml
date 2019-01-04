@@ -1,12 +1,11 @@
 ﻿@model product_qc_web.Models.TManufacture
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "成品入庫";
 }
 
-<h1>Create</h1>
+<h1>成品入庫</h1>
 
-<h4>TManufacture</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,7 +13,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProductCode" class="control-label"></label>
-                <select asp-for="ProductCode" class ="form-control" asp-items="ViewBag.ProductCode"></select>
+                <select asp-for="ProductCode" class="form-control" asp-items="ViewBag.ProductCode"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="QcFinishedTime" class="control-label"></label>
+                <input asp-for="QcFinishedTime" class="form-control" value="@ViewBag.CurrentServerTime"/>
+                <span asp-validation-for="QcFinishedTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="WorkOrderNum" class="control-label"></label>
@@ -22,20 +26,17 @@
                 <span asp-validation-for="WorkOrderNum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MachineNum" class="control-label"></label>
-                <input asp-for="MachineNum" class="form-control" />
-                <span asp-validation-for="MachineNum" class="text-danger"></span>
+                <label asp-for="MachineNumList" class="control-label"></label>
+                <input asp-for="MachineNumList" class="form-control" />
+                <span asp-validation-for="MachineNumList" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="確定" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
