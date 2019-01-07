@@ -1,13 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace product_qc_web.Models
 {
     [ModelMetadataType(typeof(MetadataTManufacture))]
     public partial class TManufacture
     {
+        [NotMapped]
         public DateTime QcFinishedTime { get; set; }
+
+        [NotMapped]
         public string MachineNumList { get; set; }
     }
 
@@ -18,6 +22,7 @@ namespace product_qc_web.Models
 
         [Required]
         [Display(Name = "工單號碼")]
+        [RegularExpression(@"^\d{12}$", ErrorMessage = "工單號碼為12碼數字。")]
         public decimal WorkOrderNum { get; set; }
 
         [Required]
