@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using product_qc_web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using product_qc_web.Models;
 
 namespace product_qc_web.Controllers
 {
@@ -21,6 +20,7 @@ namespace product_qc_web.Controllers
         // GET: TManufactures/Create
         public IActionResult Create()
         {
+            ViewData["SuccessCount"] = TempData["SuccessCount"];
             ViewData["ProductCode"] = new SelectList(_context.TProduct, "ProductCode", "ProductName");
             ViewData["CurrentServerTime"] = DateTime.Today.ToString("s");
             return View();
@@ -31,14 +31,51 @@ namespace product_qc_web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TManufacture tManufacture)
         {
-            if (ModelState.IsValid)
+            try
             {
-                saveChange(tManufacture);
+                if (!ModelState.IsValid)
+                    return errorResponse(tManufacture, "資料有錯誤！！");
+
+                List<int> machinieNumList = parsingMachineNum(tManufacture.MachineNumList);
+                string errorMsg;
+                if (!checkDataExist(machinieNumList, tManufacture.WorkOrderNum, out errorMsg))
+                    return errorResponse(tManufacture, errorMsg);
+
+                saveChange(tManufacture, machinieNumList);
                 await _context.SaveChangesAsync();
+
+                TempData["SuccessCount"] = machinieNumList.Count();
                 return RedirectToAction(nameof(Create));
             }
+            catch (Exception ex)
+            {
+                return errorResponse(tManufacture, "伺服器端出現可怕錯誤！" + ex.ToString());
+            }
+        }
+
+        private IActionResult errorResponse(TManufacture tManufacture, string errorMsg)
+        {
+            ViewData["ErrorMsg"] = "匯入失敗：" + errorMsg;
             ViewData["ProductCode"] = new SelectList(_context.TProduct, "ProductCode", "ProductName", tManufacture.ProductCode);
+            ViewData["CurrentServerTime"] = tManufacture.QcFinishedTime.ToString("s");
             return View(tManufacture);
+        }
+
+        private bool checkDataExist(List<int> machineNumList, decimal workOrderNum, out string errorMsg)
+        {
+            errorMsg = string.Empty;
+            foreach (int machineNum in machineNumList)
+            {
+                bool isDataExist = _context.TManufacture.
+                    Where(x => x.MachineNum == machineNum 
+                    && x.WorkOrderNum == workOrderNum).Any();
+                if (!isDataExist)
+                    continue;
+                errorMsg = string.Format("編號{1} 已經存在於資料庫了！",
+                    workOrderNum, machineNum);
+                return false;
+            }
+            return true;
         }
 
         private List<int> parsingMachineNum(string machineNumList)
@@ -59,9 +96,8 @@ namespace product_qc_web.Controllers
             return result;
         }
 
-        private void saveChange(TManufacture tManufacture)
+        private void saveChange(TManufacture tManufacture, List<int> machinieNumList)
         {
-            List<int> machinieNumList = parsingMachineNum(tManufacture.MachineNumList);
             foreach (int machineNum in machinieNumList)
             {
                 TManufacture manufacture = new TManufacture();

@@ -10,6 +10,12 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            @if (ViewBag.SuccessCount != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    恭喜你！！已成功匯入 @ViewBag.SuccessCount 筆資料。
+                </div>
+            }
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProductCode" class="control-label"></label>
@@ -17,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="QcFinishedTime" class="control-label"></label>
-                <input asp-for="QcFinishedTime" class="form-control" value="@ViewBag.CurrentServerTime"/>
+                <input asp-for="QcFinishedTime" class="form-control" value="@ViewBag.CurrentServerTime" />
                 <span asp-validation-for="QcFinishedTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,6 +40,12 @@
             <div class="form-group">
                 <input type="submit" value="確定" class="btn btn-primary" />
             </div>
+            @if (ViewBag.ErrorMsg != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.ErrorMsg
+                </div>
+            }
         </form>
     </div>
 </div>
