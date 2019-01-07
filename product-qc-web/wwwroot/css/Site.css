@@ -1,13 +1,13 @@
 ﻿/*----------------------------------------------------------
-The base color for this template is #5c87b2. If you'd like
+The base color for this template is #fdfdfe. If you'd like
 to use a different color start by replacing all instances of
-#5c87b2 with your new color.
+#fdfdfe with your new color.
 ----------------------------------------------------------*/
-body
+body 
 {
-    background-color: #5c87b2;
-    font-size: .75em;
-    font-family: Verdana, Helvetica, Sans-Serif;
+    background-color: #fdfdfe;
+    font-size: 1.1em;
+    font-family: Microsoft JhengHei, Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
     color: #696969;
@@ -16,20 +16,22 @@ body
 a:link
 {
     color: #034af3;
-    text-decoration: underline;
+    text-decoration: none;
 }
-a:visited
+a:visited 
 {
     color: #505abc;
+    text-decoration: none;
 }
-a:hover
+a:hover 
 {
     color: #1d60ff;
-    text-decoration: none;
+    text-decoration: underline;
 }
 a:active
 {
     color: #12eb87;
+    text-decoration: underline;
 }
 
 p, ul
@@ -59,15 +61,15 @@ h2
 }
 h3
 {
-    font-size: 1.2em;
+    font-size: 1.5em;
 }
 h4
 {
-    font-size: 1.1em;
+    font-size: 1.4em;
 }
 h5, h6
 {
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 /* this rule styles <h2> tags that are the 
@@ -131,7 +133,7 @@ page width. Or, you can specify an exact pixel width. */
 ----------------------------------------------------------*/
 ul#menu
 {
-    border-bottom: 1px #5C87B2 solid;
+    border-bottom: 1px #fdfdfe solid;
     padding: 0 0 2px;
     position: relative;
     margin: 0;
@@ -208,7 +210,7 @@ fieldset label.inline
 
 legend 
 {
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-weight: 600;
     padding: 2px 4px 8px 4px;
 }
@@ -274,7 +276,7 @@ div#title
 
 #logindisplay
 {
-    font-size:1.1em;
+    font-size:1.2em;
     display:block;
     text-align:right;
     margin:10px;
@@ -314,4 +316,8 @@ div#title
 {
     font-weight: bold;
     color: #ff0000;
+}
+
+.bg-gold {
+    background-color: #bdb196 !important;
 }

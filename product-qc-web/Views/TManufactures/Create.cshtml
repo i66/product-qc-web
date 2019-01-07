@@ -1,10 +1,10 @@
 ﻿@model product_qc_web.Models.TManufacture
 
 @{
-    ViewData["Title"] = "成品入庫";
+    ViewData["Title"] = "產品入庫";
 }
 
-<h1>成品入庫</h1>
+<h1>產品入庫</h1>
 
 <hr />
 <div class="row">
@@ -27,6 +27,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="MachineNumList" class="control-label"></label>
+                <span class="text-danger">請以逗點分隔</span>
                 <input asp-for="MachineNumList" class="form-control" />
                 <span asp-validation-for="MachineNumList" class="text-danger"></span>
             </div>
