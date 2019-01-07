@@ -64,7 +64,9 @@ namespace product_qc_web.Controllers
             List<int> machinieNumList = parsingMachineNum(tManufacture.MachineNumList);
             foreach (int machineNum in machinieNumList)
             {
-                TManufacture manufacture = tManufacture;
+                TManufacture manufacture = new TManufacture();
+                manufacture.ProductCode = tManufacture.ProductCode;
+                manufacture.WorkOrderNum = tManufacture.WorkOrderNum;
                 manufacture.MachineNum = machineNum;
                 _context.Add(manufacture);
 
