@@ -64,18 +64,26 @@ namespace product_qc_web.Controllers
         private bool checkDataExist(List<int> machineNumList, decimal workOrderNum, out string errorMsg)
         {
             errorMsg = string.Empty;
+            List<int> duplicateMachineNumList = new List<int>();
             foreach (int machineNum in machineNumList)
             {
                 bool isDataExist = _context.TManufacture.
                     Where(x => x.MachineNum == machineNum 
                     && x.WorkOrderNum == workOrderNum).Any();
-                if (!isDataExist)
-                    continue;
-                errorMsg = string.Format("編號{1} 已經存在於資料庫了！",
-                    workOrderNum, machineNum);
-                return false;
+                if (isDataExist)
+                    duplicateMachineNumList.Add(machineNum);
             }
-            return true;
+
+            if (duplicateMachineNumList.Count < 1)
+                return true;
+            string duplicateMachineNumStr = duplicateMachineNumList[0].ToString();
+            for (int i = 1; i < duplicateMachineNumList.Count; i++)
+            {
+                duplicateMachineNumStr += ("、"+ duplicateMachineNumList[i]);
+            }
+            errorMsg = string.Format("編號{1} 已經存在於資料庫了！",
+                    workOrderNum, duplicateMachineNumStr);
+            return false;
         }
 
         private List<int> parsingMachineNum(string machineNumList)
