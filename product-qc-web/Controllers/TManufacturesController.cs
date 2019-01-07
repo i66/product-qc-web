@@ -29,16 +29,54 @@ namespace product_qc_web.Controllers
         // POST: TManufactures/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductCode,WorkOrderNum,MachineNum")] TManufacture tManufacture)
+        public async Task<IActionResult> Create(TManufacture tManufacture)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tManufacture);
+                saveChange(tManufacture);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Create));
             }
             ViewData["ProductCode"] = new SelectList(_context.TProduct, "ProductCode", "ProductName", tManufacture.ProductCode);
             return View(tManufacture);
+        }
+
+        private List<int> parsingMachineNum(string machineNumList)
+        {
+            if (string.IsNullOrWhiteSpace(machineNumList))
+                return new List<int>();
+            string[] parserResult = machineNumList.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            List<int> result = new List<int>();
+            foreach (string numData in parserResult)
+            {
+                int temp;
+                if (!int.TryParse(numData.Trim(),out temp))
+                    continue;
+                if (result.Contains(temp))
+                    continue;
+                result.Add(temp);
+            }
+            return result;
+        }
+
+        private void saveChange(TManufacture tManufacture)
+        {
+            List<int> machinieNumList = parsingMachineNum(tManufacture.MachineNumList);
+            foreach (int machineNum in machinieNumList)
+            {
+                TManufacture manufacture = tManufacture;
+                manufacture.MachineNum = machineNum;
+                _context.Add(manufacture);
+
+                TQualityCheck qualityCheck = new TQualityCheck();
+                qualityCheck.TManufacture = manufacture;
+                qualityCheck.QcFinishedTime = tManufacture.QcFinishedTime;
+                _context.Add<TQualityCheck>(qualityCheck);
+
+                TDelivery delivery = new TDelivery();
+                delivery.TManufacture = manufacture;
+                _context.Add<TDelivery>(delivery);
+            }
         }
 
         private bool TManufactureExists(decimal id)
