@@ -29,7 +29,7 @@ namespace product_qc_web.Models
         [Display(Name = "出貨案場")]
         public string DeliveryDestination { get; set; }
 
-        [Display(Name = "換貨/退貨/故障紀錄")]
+        [Display(Name = "狀態紀錄")]
         public string ExchangeReturnMalfunctionNote { get; set; }
 
     }
