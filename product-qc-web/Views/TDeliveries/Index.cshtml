@@ -1,0 +1,63 @@
+﻿@model IEnumerable<product_qc_web.Models.TDelivery>
+
+@{
+    ViewData["Title"] = "成品庫存與QC進度";
+}
+
+<h1 align="center">成品庫存與QC進度</h1>
+<br />
+
+<p style="color:blue;">成品: @ViewData["ProductName"]</p>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.QcFinishedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkOrderNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDestination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExchangeReturnMalfunctionNote)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.QcFinishedTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkOrderNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryDestination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExchangeReturnMalfunctionNote)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { item.WorkOrderNum, item.MachineNum })
+                <!--|
+        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        -->
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
