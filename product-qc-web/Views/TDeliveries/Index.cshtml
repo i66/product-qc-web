@@ -1,9 +1,13 @@
-﻿@model IEnumerable<product_qc_web.Models.TDelivery>
+﻿@model IPagedList<product_qc_web.Models.TDelivery>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Common;
 
 @{
     ViewData["Title"] = "成品庫存與QC進度";
 }
 
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
 <h1 align="center">成品庫存與QC進度</h1>
 <br />
 
@@ -16,19 +20,19 @@
                 項次
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QcFinishedTime)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().QcFinishedTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WorkOrderNum)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().WorkOrderNum)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MachineNum)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().MachineNum)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DeliveryDestination)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DeliveryDestination)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExchangeReturnMalfunctionNote)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ExchangeReturnMalfunctionNote)
             </th>
 
             <th></th>
@@ -41,29 +45,39 @@
         @foreach (var item in Model)
         {
             id += 1;
-        <tr>
-            <td>
-               @id
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QcFinishedTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkOrderNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MachineNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryDestination)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExchangeReturnMalfunctionNote)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { item.WorkOrderNum, item.MachineNum })
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @id
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QcFinishedTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkOrderNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MachineNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDestination)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExchangeReturnMalfunctionNote)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { item.WorkOrderNum, item.MachineNum })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { ViewBag.ProductName, page }),
+            new PagedListRenderOptions
+            {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" }
+            })
+    </ul>
+</nav>

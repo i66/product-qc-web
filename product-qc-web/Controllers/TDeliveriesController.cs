@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using product_qc_web.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace product_qc_web.Controllers
 {
     public class TDeliveriesController : Controller
     {
+        private const int TAB_PAGE_MAX_DATA = 10;
         private readonly HexsaveContext _context;
 
         public TDeliveriesController(HexsaveContext context)
@@ -19,7 +20,7 @@ namespace product_qc_web.Controllers
         }
 
         // GET: TDeliveries
-        public async Task<IActionResult> Index(string productName)
+        public async Task<IActionResult> Index(string productName, int? page)
         {
             if (string.IsNullOrWhiteSpace(productName))
                 productName = "大主機";
@@ -42,8 +43,8 @@ namespace product_qc_web.Controllers
                             ExchangeReturnMalfunctionNote = d.ExchangeReturnMalfunctionNote,
                             TManufacture = m
                         });
-
-            return View(await data.ToListAsync());
+            var pageNumber = page ?? 1;
+            return View(await data.ToPagedListAsync(pageNumber, TAB_PAGE_MAX_DATA));
         }
 
         // GET: TDeliveries/Details/5
