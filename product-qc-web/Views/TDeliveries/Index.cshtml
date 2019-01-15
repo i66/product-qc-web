@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                項次
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.QcFinishedTime)
             </th>
             <th>
@@ -32,9 +35,16 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            int id = 0;
+        }
         @foreach (var item in Model)
         {
+            id += 1;
         <tr>
+            <td>
+               @id
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.QcFinishedTime)
             </td>
@@ -52,10 +62,6 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { item.WorkOrderNum, item.MachineNum })
-                <!--|
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        -->
             </td>
         </tr>
         }
