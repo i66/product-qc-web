@@ -67,20 +67,33 @@ namespace product_qc_web.Controllers
         }
 
         // GET: TDeliveries/Edit/5
-        public async Task<IActionResult> Edit(decimal? workOrderNum, decimal? machineNum)
+        public async Task<IActionResult> Edit(string productName, decimal? workOrderNum, decimal? machineNum)
         {
             if (workOrderNum == null || machineNum == null)
             {
                 return NotFound();
             }
 
-            var tDelivery = await _context.TDelivery.FindAsync(workOrderNum, machineNum);
+            var tDelivery = (from d in _context.TDelivery
+                             join q in _context.TQualityCheck on new { d.WorkOrderNum, d.MachineNum } equals new { q.WorkOrderNum, q.MachineNum }
+                             where d.WorkOrderNum == workOrderNum && d.MachineNum == machineNum
+                             select new TDelivery()
+                             {
+                                 QcFinishedTime = q.QcFinishedTime,
+                                 WorkOrderNum = d.WorkOrderNum,
+                                 MachineNum = d.MachineNum,
+                                 DeliveryDestination = d.DeliveryDestination,
+                                 ExchangeReturnMalfunctionNote = d.ExchangeReturnMalfunctionNote,
+                                 TManufacture = null
+                             }).FirstOrDefaultAsync();
+
             if (tDelivery == null)
             {
                 return NotFound();
             }
-            ViewData["WorkOrderNum"] = new SelectList(_context.TManufacture, "WorkOrderNum", "WorkOrderNum", tDelivery.WorkOrderNum);
-            return View(tDelivery);
+
+            ViewData["ProductName"] = productName;
+            return View(await tDelivery);
         }
 
         // POST: TDeliveries/Edit/5
