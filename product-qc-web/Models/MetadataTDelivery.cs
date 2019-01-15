@@ -15,15 +15,15 @@ namespace product_qc_web.Models
     public class MetadataTDelivery
     {
         [Display(Name = "完成時間")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime QcFinishedTime { get; set; }
 
         [Display(Name = "工單號碼")]
-        [DisplayFormat(DataFormatString = "{0:F0}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:F0}", ApplyFormatInEditMode = false)]
         public decimal WorkOrderNum { get; set; }
 
         [Display(Name = "編號")]
-        [DisplayFormat(DataFormatString = "{0:F0}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:F0}", ApplyFormatInEditMode = false)]
         public decimal MachineNum { get; set; }
 
         [Display(Name = "出貨案場")]
