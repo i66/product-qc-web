@@ -12,7 +12,7 @@ namespace product_qc_web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "TDeliveries");
         }
 
         public IActionResult Privacy()
