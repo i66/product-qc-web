@@ -34,8 +34,15 @@ namespace product_qc_web.Controllers
                         join d in _context.TDelivery on new { m.WorkOrderNum, m.MachineNum } equals new { d.WorkOrderNum, d.MachineNum }
                         join q in _context.TQualityCheck on new { m.WorkOrderNum, m.MachineNum } equals new { q.WorkOrderNum, q.MachineNum }
                         where m.ProductCode == productCode
-                        select d);
-            
+                        select new TDelivery() {
+                            QcFinishedTime = q.QcFinishedTime,
+                            WorkOrderNum = d.WorkOrderNum,
+                            MachineNum = d.MachineNum,
+                            DeliveryDestination = d.DeliveryDestination,
+                            ExchangeReturnMalfunctionNote = d.ExchangeReturnMalfunctionNote,
+                            TManufacture = m
+                        });
+
             return View(await data.ToListAsync());
         }
 
@@ -114,20 +121,7 @@ namespace product_qc_web.Controllers
         // GET: TDeliveries/Delete/5
         public async Task<IActionResult> Delete(decimal? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var tDelivery = await _context.TDelivery
-                .Include(t => t.TManufacture)
-                .FirstOrDefaultAsync(m => m.WorkOrderNum == id);
-            if (tDelivery == null)
-            {
-                return NotFound();
-            }
-
-            return View(tDelivery);
+            return NotFound();
         }
 
         // POST: TDeliveries/Delete/5
@@ -135,10 +129,7 @@ namespace product_qc_web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(decimal id)
         {
-            var tDelivery = await _context.TDelivery.FindAsync(id);
-            _context.TDelivery.Remove(tDelivery);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return NotFound();
         }
 
         private bool TDeliveryExists(decimal id)
