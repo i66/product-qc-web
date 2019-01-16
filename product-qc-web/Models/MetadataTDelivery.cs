@@ -11,6 +11,12 @@ namespace product_qc_web.Models
     {
         [NotMapped]
         public DateTime QcFinishedTime { get; set; }
+
+        [NotMapped]
+        public string ProductName { get; set; }
+
+        [NotMapped]
+        public int Page { get; set; }
     }
 
     public class MetadataTDelivery
