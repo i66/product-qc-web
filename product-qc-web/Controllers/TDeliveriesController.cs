@@ -43,7 +43,8 @@ namespace product_qc_web.Controllers
                             ExchangeReturnMalfunctionNote = d.ExchangeReturnMalfunctionNote,
                             TManufacture = m
                         });
-            var pageNumber = page ?? 1;
+            int pageNumber = page ?? 1;
+            ViewData["PageNumber"] = (pageNumber - 1) * TAB_PAGE_MAX_DATA;
             return View(await data.ToPagedListAsync(pageNumber, TAB_PAGE_MAX_DATA));
         }
 
