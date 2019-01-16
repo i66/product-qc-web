@@ -38,12 +38,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="DeliveryDestination" class="control-label"></label>
-                <input asp-for="DeliveryDestination" class="form-control" />
+                @Html.TextAreaFor(model => model.DeliveryDestination, new { @class = "form-control", @rows = 1 })
                 <span asp-validation-for="DeliveryDestination" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ExchangeReturnMalfunctionNote" class="control-label"></label>
-                <input asp-for="ExchangeReturnMalfunctionNote" class="form-control" />
+                @Html.TextAreaFor(model => model.ExchangeReturnMalfunctionNote, new { @class = "form-control", @rows = 4 })
                 <span asp-validation-for="ExchangeReturnMalfunctionNote" class="text-danger"></span>
             </div>
             <div class="form-group">
