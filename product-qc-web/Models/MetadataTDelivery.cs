@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
 
 namespace product_qc_web.Models
 {
@@ -27,9 +28,11 @@ namespace product_qc_web.Models
         public decimal MachineNum { get; set; }
 
         [Display(Name = "出貨案場")]
+        [RegularExpression(@"^.{0,50}$", ErrorMessage = "字數(含標點符號)最多為50字")]
         public string DeliveryDestination { get; set; }
 
         [Display(Name = "狀態紀錄")]
+        [RegularExpression(@"^.{0,255}$", ErrorMessage = "字數(含標點符號)最多為255字")]
         public string ExchangeReturnMalfunctionNote { get; set; }
 
     }

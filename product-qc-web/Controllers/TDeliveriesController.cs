@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using product_qc_web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace product_qc_web.Controllers
     {
         private const int TAB_PAGE_MAX_DATA = 10;
         private readonly HexsaveContext _context;
+        private const int DESTINATION_WORD_LENGTH = 50;
+        private const int ERM_WORD_LENGTH = 255;
 
         public TDeliveriesController(HexsaveContext context)
         {
@@ -102,34 +105,42 @@ namespace product_qc_web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("WorkOrderNum,MachineNum,DeliveryDestination,ExchangeReturnMalfunctionNote")] TDelivery tDelivery)
+        public async Task<IActionResult> Edit(TDelivery tDelivery)
         {
-            if (id != tDelivery.WorkOrderNum)
+
+            int strCountOfDestination = tDelivery.DeliveryDestination == null ? 0 : tDelivery.DeliveryDestination.Length;
+            int strCountERM = tDelivery.ExchangeReturnMalfunctionNote == null ? 0 : tDelivery.ExchangeReturnMalfunctionNote.Length;
+
+            if (tDelivery.WorkOrderNum < 1 || tDelivery.MachineNum < 1)
+                return errorResponse(tDelivery, "伺服器端無工單號碼或編號!!");
+
+            if (strCountOfDestination > DESTINATION_WORD_LENGTH)
+                return errorResponse(tDelivery, "出貨案場字數須少於" + DESTINATION_WORD_LENGTH + "字!!");
+
+            if (strCountERM > ERM_WORD_LENGTH)
+                return errorResponse(tDelivery, "換貨/退貨/故障紀錄字數須少於" + ERM_WORD_LENGTH + "字!!");
+
+            try
             {
-                return NotFound();
+                if (!ModelState.IsValid)
+                    return errorResponse(tDelivery, "資料有錯誤！！");
+
+                _context.Update(tDelivery);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch(Exception ex)
+            {
+                return errorResponse(tDelivery, "伺服器端出現可怕錯誤！" + ex.ToString());
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(tDelivery);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TDeliveryExists(tDelivery.WorkOrderNum))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["WorkOrderNum"] = new SelectList(_context.TManufacture, "WorkOrderNum", "WorkOrderNum", tDelivery.WorkOrderNum);
+        }
+
+        private IActionResult errorResponse(TDelivery tDelivery, string errorMsg)
+        {
+            ViewData["ErrorMsg"] = "匯入失敗：" + errorMsg;
             return View(tDelivery);
         }
 

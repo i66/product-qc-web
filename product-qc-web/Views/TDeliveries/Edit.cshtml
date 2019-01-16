@@ -17,19 +17,22 @@
                 <input disabled class="form-control" value="@ViewData["ProductName"]" />
             </div>
             <div class="form-group">
-                @{ 
+                @{
                     string qcFinishedTime = Model.QcFinishedTime.ToString("yyyy/MM/dd");
                 }
                 <label asp-for="QcFinishedTime" class="control-label"></label>
                 <input disabled asp-for="@qcFinishedTime" class="form-control" />
+                <input type="hidden" asp-for="@qcFinishedTime" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="WorkOrderNum" class="control-label"></label>
                 <input disabled asp-for="WorkOrderNum" class="form-control" />
+                <input type="hidden" asp-for="WorkOrderNum" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="MachineNum" class="control-label"></label>
                 <input disabled asp-for="MachineNum" class="form-control" />
+                <input type="hidden" asp-for="MachineNum" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="DeliveryDestination" class="control-label"></label>
@@ -44,6 +47,12 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+            @if (ViewBag.ErrorMsg != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.ErrorMsg
+                </div>
+            }
         </form>
     </div>
 </div>
