@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
     color: #000;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Microsoft JhengHei, Verdana, Helvetica, Sans-Serif;
 }
 
 h1
@@ -99,7 +99,7 @@ page width. Or, you can specify an exact pixel width. */
     padding: 0;
 }
 
-#header h1
+#header h1 
 {
     font-weight: bold;
     padding: 5px 0;
@@ -107,7 +107,7 @@ page width. Or, you can specify an exact pixel width. */
     color: #fff;
     border: none;
     line-height: 2em;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Microsoft JhengHei, Verdana, Helvetica, Sans-Serif;
     font-size: 32px !important;
 }
 
@@ -239,6 +239,7 @@ table
 table td
 {
     padding: 5px;
+    color: black;
     border: solid 1px #e8eef4;
     cursor: pointer;
 }
@@ -246,9 +247,15 @@ table td
 table th 
 {
     padding: 6px 5px;
-    text-align: left;
-    background-color: #e8eef4;
+    text-align: center;
+    color: black;
+    background-color: #a6a6a6;
     border: solid 1px #e8eef4;
+}
+
+table tr
+{
+    text-align: center;
 }
 
 table tr:hover 

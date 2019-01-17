@@ -10,32 +10,31 @@
 <link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
 <h1 align="center">成品庫存與QC進度</h1>
 <br />
-
-<p style="color:blue;">成品: @Model.FirstOrDefault().ProductName</p>
+<h4 style="color:blue;">成品：@Model.FirstOrDefault().ProductName</h4>
 <hr />
-<table class="table">
+<table class="table" style="width:100%">
     <thead>
         <tr>
-            <th>
+            <th style="width:8%">
                 項次
             </th>
-            <th>
+            <th style="width:12%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().QcFinishedTime)
             </th>
-            <th>
+            <th style="width:14%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().WorkOrderNum)
             </th>
-            <th>
+            <th style="width:8%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().MachineNum)
             </th>
-            <th>
+            <th style="width:20%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().DeliveryDestination)
             </th>
-            <th>
+            <th style="width:30%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().ExchangeReturnMalfunctionNote)
             </th>
 
-            <th></th>
+            <th style="width:8%"></th>
         </tr>
     </thead>
     <tbody>
