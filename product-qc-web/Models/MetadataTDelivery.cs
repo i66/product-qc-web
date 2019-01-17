@@ -17,6 +17,9 @@ namespace product_qc_web.Models
 
         [NotMapped]
         public int Page { get; set; }
+
+        [NotMapped]
+        public string CurrentSort { get; set; }
     }
 
     public class MetadataTDelivery
