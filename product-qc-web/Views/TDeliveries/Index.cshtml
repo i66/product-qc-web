@@ -15,26 +15,26 @@
 <table class="table" style="width:100%">
     <thead>
         <tr>
-            <th style="width:8%">
+            <th style="width:7%">
                 項次
             </th>
-            <th style="width:12%">
+            <th style="width:11%">
                 @Html.ActionLink("完成時間", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortOrder = ViewBag.QcFinishedTimeSortParm})
             </th>
-            <th style="width:14%">
+            <th style="width:13%">
                 @Html.ActionLink("工單號碼", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortOrder = ViewBag.WorkOrderNumSortParm})
             </th>
-            <th style="width:8%">
+            <th style="width:7%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().MachineNum)
             </th>
-            <th style="width:20%">
+            <th style="width:19%">
                 @Html.ActionLink("出貨案場", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortOrder = ViewBag.DeliveryDestinationSortParm })
             </th>
-            <th style="width:30%">
+            <th style="width:36%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().ExchangeReturnMalfunctionNote)
             </th>
 
-            <th style="width:8%"></th>
+            <th style="width:7%"></th>
         </tr>
     </thead>
     <tbody>
@@ -58,10 +58,10 @@
                     @Html.DisplayFor(modelItem => item.MachineNum)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DeliveryDestination)
+                    @Html.DisplayFor(modelItem => item.ShortDeliveryDestination)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ExchangeReturnMalfunctionNote)
+                    @Html.DisplayFor(modelItem => item.ShortExchangeReturnMalfunctionNote)
                 </td>
                 <td>
                     @Html.ActionLink("編輯", "Edit", new { item.ProductName, item.CurrentSort, item.Page, item.WorkOrderNum, item.MachineNum })

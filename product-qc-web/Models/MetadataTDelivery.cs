@@ -9,6 +9,47 @@ namespace product_qc_web.Models
     [ModelMetadataType(typeof(MetadataTDelivery))]
     public partial class TDelivery
     {
+        private const int MAX_DELIVERY_DESTINATION_SHOW_LENGTH = 10;
+        private const int DELIVERY_DESTINATION__LEFT_RESERVED = 6;
+        private const int DELIVERY_DESTINATION_RIGHT_RESERVED = 3;
+
+        private const int MAX_NOTE_SHOW_LENGTH = 20;
+        private const int NOTE_LEFT_RESERVED = 18;
+
+        private const string NEGLECT_TOKEN = "...";
+        private string shortDeliveryDestinationStr(string deliveryDestination)
+        {
+            if (string.IsNullOrWhiteSpace(deliveryDestination) || 
+                deliveryDestination.Length < MAX_DELIVERY_DESTINATION_SHOW_LENGTH)
+                return deliveryDestination;
+
+            string result = deliveryDestination.Substring(0, DELIVERY_DESTINATION__LEFT_RESERVED) + NEGLECT_TOKEN
+                + deliveryDestination.Substring(deliveryDestination.Length - DELIVERY_DESTINATION_RIGHT_RESERVED);
+            return result;
+        }
+
+        private string shortNoteStr(string exchangeReturnMalfunctionNote)
+        {
+            if (string.IsNullOrWhiteSpace(exchangeReturnMalfunctionNote) ||
+                exchangeReturnMalfunctionNote.Length < MAX_NOTE_SHOW_LENGTH)
+                return exchangeReturnMalfunctionNote;
+
+            string result = exchangeReturnMalfunctionNote.Substring(0, NOTE_LEFT_RESERVED) + NEGLECT_TOKEN;
+            return result;
+        }
+
+        [NotMapped]
+        public string ShortDeliveryDestination
+        {
+            get { return shortDeliveryDestinationStr(DeliveryDestination); }
+        }
+        
+        [NotMapped]
+        public string ShortExchangeReturnMalfunctionNote
+        {
+            get { return shortNoteStr(ExchangeReturnMalfunctionNote); }
+        }
+
         [NotMapped]
         public DateTime QcFinishedTime { get; set; }
 
