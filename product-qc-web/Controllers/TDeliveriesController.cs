@@ -11,8 +11,8 @@ namespace product_qc_web.Controllers
 {
     public class TDeliveriesController : Controller
     {
-        private const int TAB_PAGE_MAX_DATA = 10;
         private readonly HexsaveContext _context;
+        private const int TAB_PAGE_MAX_DATA = 10;
         private const int DESTINATION_WORD_LENGTH = 50;
         private const int ERM_WORD_LENGTH = 255;
         private const string DEFAULT_PRODUCT_NAME = "大主機";
@@ -24,14 +24,13 @@ namespace product_qc_web.Controllers
         }
 
         // GET: TDeliveries
-        public async Task<IActionResult> Index(string productName, string sortOrder, int? page)
+        public async Task<IActionResult> Index(string productName, DeliveryField sortField, DeliveryField lastSortField, bool isAsc, int? page)
         {
             if (string.IsNullOrWhiteSpace(productName))
                 productName = DEFAULT_PRODUCT_NAME;
 
-            ViewData["QcFinishedTimeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "QcFinishedTime" : "";
-            ViewData["WorkOrderNumSortParm"] = sortOrder == "WorkOrderNum" ? "WorkOrderNum_desc" : "WorkOrderNum";
-            ViewData["DeliveryDestinationSortParm"] = sortOrder == "DeliveryDestination" ? "DeliveryDestination_desc" : "DeliveryDestination";
+            Func<TDelivery, Object> sortClause = sortingCondition(sortField);
+            bool isOrderAsc = getOrder(sortField, lastSortField, isAsc);
 
             decimal productCode = (from s in _context.TProduct
                                    where s.ProductName == productName
@@ -45,7 +44,8 @@ namespace product_qc_web.Controllers
                         select new TDelivery() {
                             ProductName = productName,
                             Page = goodPage,
-                            CurrentSort = sortOrder,
+                            SortField = sortField,
+                            IsAsc = isOrderAsc,
                             QcFinishedTime = q.QcFinishedTime,
                             WorkOrderNum = d.WorkOrderNum,
                             MachineNum = d.MachineNum,
@@ -54,30 +54,50 @@ namespace product_qc_web.Controllers
                             TManufacture = m
                         });
 
-            switch (sortOrder)
+            List<TDelivery> sortingData;
+            if (isOrderAsc)
+                sortingData = data.OrderBy(sortClause).ToList();
+            else
+                sortingData = data.OrderByDescending(sortClause).ToList();
+
+            ViewData["PageNumber"] = (goodPage - 1) * TAB_PAGE_MAX_DATA;
+            return View(await sortingData.ToPagedListAsync(goodPage, TAB_PAGE_MAX_DATA));
+        }
+
+        private bool getOrder(DeliveryField sortField, DeliveryField lastSortField, bool isAsc)
+        {
+            if (DeliveryField.none == sortField && DeliveryField.none == lastSortField)
+                return false;
+
+            if (sortField == lastSortField)
+                return !isAsc;
+            else
+                return isAsc;
+
+        }
+
+        private Func<TDelivery, Object> sortingCondition(DeliveryField sortField)
+        {
+            Func<TDelivery, Object> orderClause;
+
+            switch (sortField)
             {
-                case "QcFinishedTime":
-                    data = data.OrderBy(d => d.QcFinishedTime);
+                case DeliveryField.QcFinishedTime:
+                    orderClause = TDelivery => TDelivery.QcFinishedTime;
                     break;
-                case "WorkOrderNum_desc":
-                    data = data.OrderByDescending(d => d.WorkOrderNum);
+                case DeliveryField.WorkOrderNum:
+                    orderClause = TDelivery => TDelivery.WorkOrderNum;
                     break;
-                case "WorkOrderNum":
-                    data = data.OrderBy(d => d.WorkOrderNum);
+                case DeliveryField.DeliveryDestination:
+                    orderClause = TDelivery => TDelivery.DeliveryDestination;
                     break;
-                case "DeliveryDestination_desc":
-                    data = data.OrderByDescending(d => d.DeliveryDestination);
-                    break;
-                case "DeliveryDestination":
-                    data = data.OrderBy(d => d.DeliveryDestination);
-                    break;
+                case DeliveryField.none:
                 default:
-                    data = data.OrderByDescending(d => d.QcFinishedTime);
+                    orderClause = TDelivery => TDelivery.QcFinishedTime;
                     break;
             }
 
-            ViewData["PageNumber"] = (goodPage - 1) * TAB_PAGE_MAX_DATA;
-            return View(await data.ToPagedListAsync(goodPage, TAB_PAGE_MAX_DATA));
+            return orderClause;
         }
 
         // GET: TDeliveries/Details/5
@@ -100,7 +120,7 @@ namespace product_qc_web.Controllers
         }
 
         // GET: TDeliveries/Edit/5
-        public async Task<IActionResult> Edit(string productName, string sortOrder, int? page, decimal? workOrderNum, decimal? machineNum)
+        public async Task<IActionResult> Edit(string productName, DeliveryField sortField, bool isAsc, int? page, decimal? workOrderNum, decimal? machineNum)
         {
             if (workOrderNum == null || machineNum == null)
                 return NotFound();
@@ -114,7 +134,8 @@ namespace product_qc_web.Controllers
                              {
                                  ProductName = productName,
                                  Page = goodPage,
-                                 CurrentSort = sortOrder,
+                                 SortField = sortField,
+                                 IsAsc = isAsc,
                                  QcFinishedTime = q.QcFinishedTime,
                                  WorkOrderNum = d.WorkOrderNum,
                                  MachineNum = d.MachineNum,
@@ -160,7 +181,7 @@ namespace product_qc_web.Controllers
                 _context.Update(tDelivery);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index", new { productName, sortOrder = tDelivery.CurrentSort, page });
+                return RedirectToAction("Index", new { productName, sortField = tDelivery.SortField, isAsc = tDelivery.IsAsc, page });
 
             }
             catch(Exception ex)

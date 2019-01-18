@@ -19,16 +19,16 @@
                 項次
             </th>
             <th style="width:11%">
-                @Html.ActionLink("完成時間", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortOrder = ViewBag.QcFinishedTimeSortParm})
+                @Html.ActionLink("完成時間", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.QcFinishedTime, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
             </th>
             <th style="width:13%">
-                @Html.ActionLink("工單號碼", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortOrder = ViewBag.WorkOrderNumSortParm})
+                @Html.ActionLink("工單號碼", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.WorkOrderNum, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
             </th>
             <th style="width:7%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().MachineNum)
             </th>
             <th style="width:19%">
-                @Html.ActionLink("出貨案場", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortOrder = ViewBag.DeliveryDestinationSortParm })
+                @Html.ActionLink("出貨案場", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.DeliveryDestination, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
             </th>
             <th style="width:36%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().ExchangeReturnMalfunctionNote)
@@ -44,7 +44,7 @@
         @foreach (var item in Model)
         {
             id += 1;
-            <tr onclick="location.href = '@Url.Action("Edit", new { item.ProductName, item.CurrentSort, item.Page, item.WorkOrderNum, item.MachineNum })'">
+            <tr onclick="location.href = '@Url.Action("Edit", new { item.ProductName, item.SortField, isAsc = item.IsAsc, item.Page, item.WorkOrderNum, item.MachineNum })'">
                 <td>
                     @id
                 </td>
@@ -64,7 +64,7 @@
                     @Html.DisplayFor(modelItem => item.ShortExchangeReturnMalfunctionNote)
                 </td>
                 <td>
-                    @Html.ActionLink("編輯", "Edit", new { item.ProductName, item.CurrentSort, item.Page, item.WorkOrderNum, item.MachineNum })
+                    @Html.ActionLink("編輯", "Edit", new { item.ProductName, item.SortField, isAsc = item.IsAsc, item.Page, item.WorkOrderNum, item.MachineNum })
                 </td>
             </tr>
         }
@@ -72,7 +72,7 @@
 </table>
 <nav aria-label="Page navigation">
     <ul class="pagination">
-        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { @Model.FirstOrDefault().ProductName, @Model.FirstOrDefault().CurrentSort, page }),
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { @Model.FirstOrDefault().ProductName, sortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc, page }),
             new PagedListRenderOptions
             {
                 LiElementClasses = new string[] { "page-item" },

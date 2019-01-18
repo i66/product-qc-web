@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 
 namespace product_qc_web.Models
 {
+    public enum DeliveryField { none = 0, QcFinishedTime, WorkOrderNum, DeliveryDestination };
+
     [ModelMetadataType(typeof(MetadataTDelivery))]
     public partial class TDelivery
     {
@@ -60,7 +62,10 @@ namespace product_qc_web.Models
         public int Page { get; set; }
 
         [NotMapped]
-        public string CurrentSort { get; set; }
+        public DeliveryField SortField { get; set; }
+
+        [NotMapped]
+        public bool IsAsc { get; set; }
     }
 
     public class MetadataTDelivery
