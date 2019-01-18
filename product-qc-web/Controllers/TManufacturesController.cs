@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using product_qc_web.Lib;
 using product_qc_web.Models;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace product_qc_web.Controllers
                 if (!ModelState.IsValid)
                     return errorResponse(tManufacture, "資料有錯誤！！");
 
-                List<int> machinieNumList = parsingMachineNum(tManufacture.MachineNumList);
+                List<int> machinieNumList = new ParserUtility().ParsingMachineNum(tManufacture.MachineNumList);
                 string errorMsg;
                 if (!checkDataExist(machinieNumList, tManufacture.WorkOrderNum, out errorMsg))
                     return errorResponse(tManufacture, errorMsg);
@@ -84,24 +85,6 @@ namespace product_qc_web.Controllers
             errorMsg = string.Format("編號{1} 已經存在於資料庫了！",
                     workOrderNum, duplicateMachineNumStr);
             return false;
-        }
-
-        private List<int> parsingMachineNum(string machineNumList)
-        {
-            if (string.IsNullOrWhiteSpace(machineNumList))
-                return new List<int>();
-            string[] parserResult = machineNumList.Split(",", StringSplitOptions.RemoveEmptyEntries);
-            List<int> result = new List<int>();
-            foreach (string numData in parserResult)
-            {
-                int temp;
-                if (!int.TryParse(numData.Trim(),out temp))
-                    continue;
-                if (result.Contains(temp))
-                    continue;
-                result.Add(temp);
-            }
-            return result;
         }
 
         private void saveChange(TManufacture tManufacture, List<int> machinieNumList)
