@@ -7,6 +7,21 @@
     ViewData["Title"] = "成品庫存與QC進度";
 }
 
+@functions{
+    private string getSortIconCss(DeliveryField field, DeliveryField sortField, bool isAsc)
+    {
+        string upDownImgName = "sort-down.png";
+
+        if (isAsc)
+            upDownImgName = "sort-up.png";
+
+        if (field == sortField)
+            return "<img src=\"/img/" + upDownImgName + "\" width=\"10\" height=\"10\">";
+        else
+            return "";
+    }
+}
+
 <link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
 <h1 align="center">成品庫存與QC進度</h1>
 <br />
@@ -20,15 +35,18 @@
             </th>
             <th style="width:11%">
                 @Html.ActionLink("完成時間", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.QcFinishedTime, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
+                @Html.Raw(@getSortIconCss(DeliveryField.QcFinishedTime, Model.FirstOrDefault().SortField, Model.FirstOrDefault().IsAsc))
             </th>
             <th style="width:13%">
                 @Html.ActionLink("工單號碼", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.WorkOrderNum, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
+                @Html.Raw(@getSortIconCss(DeliveryField.WorkOrderNum, Model.FirstOrDefault().SortField, Model.FirstOrDefault().IsAsc))
             </th>
             <th style="width:7%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().MachineNum)
             </th>
             <th style="width:19%">
                 @Html.ActionLink("出貨案場", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.DeliveryDestination, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
+                @Html.Raw(@getSortIconCss(DeliveryField.DeliveryDestination, Model.FirstOrDefault().SortField, Model.FirstOrDefault().IsAsc))
             </th>
             <th style="width:36%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().ExchangeReturnMalfunctionNote)
@@ -39,7 +57,7 @@
     </thead>
     <tbody>
         @{
-            int id = ViewBag.PageNumber?? 0;
+            int id = ViewBag.PageNumber ?? 0;
         }
         @foreach (var item in Model)
         {
