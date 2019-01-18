@@ -21,6 +21,7 @@ namespace product_qc_web.Lib
                     continue;
                 result.Add(temp);
             }
+            result.Sort();
             return result;
         }
 

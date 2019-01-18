@@ -10,9 +10,18 @@ namespace UT.product_qc_web
         public void Test_ParsingMachineNum()
         {
             ParserUtility tester = new ParserUtility();
-            List<int> fakeInputStr = new List<int>() { 5, 4, 3, 2, 1 };
+            List<int> fakeInputStr = new List<int>() { 1, 2, 3, 4, 5 };
             string fakeResultCombineStr = string.Join(ParserUtility.SEPERATOR, fakeInputStr);
             List<int> fakeResult = tester.ParsingMachineNum(fakeResultCombineStr);
+            Assert.Equal(fakeInputStr, fakeResult);
+        }
+
+        [Fact]
+        public void Test_ParsingMachineNum_Sort()
+        {
+            ParserUtility tester = new ParserUtility();
+            List<int> fakeInputStr = new List<int>() { 1, 2, 3, 4, 5 };
+            List<int> fakeResult = tester.ParsingMachineNum("5,4,3,2,1");
             Assert.Equal(fakeInputStr, fakeResult);
         }
 
@@ -67,7 +76,7 @@ namespace UT.product_qc_web
         public void Test_ParsingMachineNum_MultiDigitSupport()
         {
             string fakeStr = "1234, 567, 20";
-            List<int> fakeStrResult = new List<int>() { 1234, 567, 20 };
+            List<int> fakeStrResult = new List<int>() { 20, 567, 1234 };
             ParserUtility tester = new ParserUtility();
             List<int> fakeResult = tester.ParsingMachineNum(fakeStr);
             Assert.Equal(fakeStrResult, fakeResult);
