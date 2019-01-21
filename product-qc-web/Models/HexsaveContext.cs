@@ -56,6 +56,10 @@ namespace product_qc_web.Models
                     .HasColumnName("Exchange_Return_Malfunction_Note")
                     .HasMaxLength(255);
 
+                entity.Property(e => e.LastModifiedTime)
+                    .HasColumnName("Last_Modified_Time")
+                    .HasColumnType("date");
+
                 entity.HasOne(d => d.TManufacture)
                     .WithOne(p => p.TDelivery)
                     .HasForeignKey<TDelivery>(d => new { d.WorkOrderNum, d.MachineNum })
