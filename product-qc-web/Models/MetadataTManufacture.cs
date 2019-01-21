@@ -30,7 +30,7 @@ namespace product_qc_web.Models
         public decimal MachineNum { get; set; }
 
         [Required]
-        [Display(Name = "完成日期")]
+        [Display(Name = "完成時間")]
         public DateTime QcFinishedTime { get; set; }
 
         [Required]
