@@ -198,7 +198,7 @@ namespace product_qc_web.Controllers
         }
 
         // GET: TDeliveries/Delete/5
-        public async Task<IActionResult> Delete(decimal? id)
+        public IActionResult Delete(decimal? id)
         {
             return NotFound();
         }
@@ -206,7 +206,7 @@ namespace product_qc_web.Controllers
         // POST: TDeliveries/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(decimal id)
+        public IActionResult DeleteConfirmed(decimal id)
         {
             return NotFound();
         }
