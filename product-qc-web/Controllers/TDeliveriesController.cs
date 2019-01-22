@@ -51,6 +51,7 @@ namespace product_qc_web.Controllers
                             MachineNum = d.MachineNum,
                             DeliveryDestination = d.DeliveryDestination,
                             ExchangeReturnMalfunctionNote = d.ExchangeReturnMalfunctionNote,
+                            LastModifiedTime = d.LastModifiedTime,
                             TManufacture = m
                         });
 
@@ -90,6 +91,9 @@ namespace product_qc_web.Controllers
                     break;
                 case DeliveryField.DeliveryDestination:
                     orderClause = TDelivery => TDelivery.DeliveryDestination;
+                    break;
+                case DeliveryField.LastModifiedTime:
+                    orderClause = TDelivery => TDelivery.LastModifiedTime;
                     break;
                 case DeliveryField.none:
                 default:
@@ -141,6 +145,7 @@ namespace product_qc_web.Controllers
                                  MachineNum = d.MachineNum,
                                  DeliveryDestination = d.DeliveryDestination,
                                  ExchangeReturnMalfunctionNote = d.ExchangeReturnMalfunctionNote,
+                                 LastModifiedTime = d.LastModifiedTime,
                                  TManufacture = null
                              }).FirstOrDefaultAsync();
 
@@ -178,7 +183,8 @@ namespace product_qc_web.Controllers
                 if (!ModelState.IsValid)
                     return errorResponse(tDelivery, "資料有錯誤！！");
 
-                _context.Update(tDelivery);
+                tDelivery.LastModifiedTime = DateTime.Now;
+                 _context.Update(tDelivery);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Index", new { productName, sortField = tDelivery.SortField, isAsc = tDelivery.IsAsc, page });
