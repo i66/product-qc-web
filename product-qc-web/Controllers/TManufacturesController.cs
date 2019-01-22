@@ -104,6 +104,7 @@ namespace product_qc_web.Controllers
 
                 TDelivery delivery = new TDelivery();
                 delivery.TManufacture = manufacture;
+                delivery.LastModifiedTime = DateTime.Now;
                 _context.Add<TDelivery>(delivery);
             }
         }
