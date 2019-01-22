@@ -92,9 +92,6 @@ namespace product_qc_web.Controllers
                 case DeliveryField.DeliveryDestination:
                     orderClause = TDelivery => TDelivery.DeliveryDestination;
                     break;
-                case DeliveryField.LastModifiedTime:
-                    orderClause = TDelivery => TDelivery.LastModifiedTime;
-                    break;
                 case DeliveryField.none:
                 default:
                     orderClause = TDelivery => TDelivery.QcFinishedTime;

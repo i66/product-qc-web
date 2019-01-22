@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace product_qc_web.Models
 {
-    public enum DeliveryField { none = 0, QcFinishedTime, WorkOrderNum, DeliveryDestination, LastModifiedTime };
+    public enum DeliveryField { none = 0, QcFinishedTime, WorkOrderNum, DeliveryDestination };
 
     [ModelMetadataType(typeof(MetadataTDelivery))]
     public partial class TDelivery

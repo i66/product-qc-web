@@ -33,29 +33,24 @@
             <th style="width:7%">
                 項次
             </th>
-            <th style="width:10%">
+            <th style="width:12%">
                 @Html.ActionLink("完成時間", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.QcFinishedTime, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
                 @Html.Raw(@getSortIconCss(DeliveryField.QcFinishedTime, Model.FirstOrDefault().SortField, Model.FirstOrDefault().IsAsc))
             </th>
-            <th style="width:12%">
+            <th style="width:14%">
                 @Html.ActionLink("工單號碼", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.WorkOrderNum, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
                 @Html.Raw(@getSortIconCss(DeliveryField.WorkOrderNum, Model.FirstOrDefault().SortField, Model.FirstOrDefault().IsAsc))
             </th>
-            <th style="width:7%">
+            <th style="width:8%">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().MachineNum)
             </th>
-            <th style="width:14%">
+            <th style="width:17%">
                 @Html.ActionLink("出貨案場", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.DeliveryDestination, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
                 @Html.Raw(@getSortIconCss(DeliveryField.DeliveryDestination, Model.FirstOrDefault().SortField, Model.FirstOrDefault().IsAsc))
             </th>
-            <th style="width:33%">
+            <th style="width:35%">
                     @Html.DisplayNameFor(model => model.FirstOrDefault().ExchangeReturnMalfunctionNote)
             </th>
-            <th style="width:10%">
-                 @Html.ActionLink("異動時間", "Index", new { productName = @Model.FirstOrDefault().ProductName, sortField = DeliveryField.LastModifiedTime, lastSortField = Model.FirstOrDefault().SortField, isAsc = Model.FirstOrDefault().IsAsc })
-                 @Html.Raw(@getSortIconCss(DeliveryField.LastModifiedTime, Model.FirstOrDefault().SortField, Model.FirstOrDefault().IsAsc))
-            </th>
-
             <th style="width:7%"></th>
         </tr>
     </thead>
@@ -84,9 +79,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ShortExchangeReturnMalfunctionNote)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModifiedTime)
             </td>
             <td>
                 @Html.ActionLink("編輯", "Edit", new { item.ProductName, item.SortField, isAsc = item.IsAsc, item.Page, item.WorkOrderNum, item.MachineNum })
