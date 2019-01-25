@@ -20,15 +20,6 @@ namespace product_qc_web.Models
         public virtual DbSet<TProduct> TProduct { get; set; }
         public virtual DbSet<TQualityCheck> TQualityCheck { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=192.168.15.201\\SQLEXPRESS;Initial Catalog=Hexsave;Persist Security Info=True;User ID=webuse;Password=Hex54232885");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");

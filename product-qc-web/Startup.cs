@@ -28,7 +28,8 @@ namespace product_qc_web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<HexsaveContext>();
+            services.AddDbContext<HexsaveContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("PrtQcWebDatabase")));
             services.AddScoped<DbContext, HexsaveContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
