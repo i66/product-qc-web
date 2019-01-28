@@ -1,38 +1,17 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.WindowsServices;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-
-namespace product_qc_web
+﻿namespace product_qc_web
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            var isService = !(Debugger.IsAttached || args.Contains("--console"));
-
-            if (isService)
-            {
-                var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
-                var pathToContentRoot = Path.GetDirectoryName(pathToExe);
-                Directory.SetCurrentDirectory(pathToContentRoot);
-            }
-
-            IWebHost builder = CreateWebHostBuilder(
-                args.Where(arg => arg != "--console").ToArray())
-                .UseUrls("http://*:5000/").Build();
-
-            if (isService)
-                builder.RunAsService();
-            else
-                builder.Run();
+#if AZURE_POLICY
+            PolicyBase policy = new AzurePolicy();
+#else
+            PolicyBase policy = new ServiceOrConsolePolicy();
+#endif
+            policy.Run(args);
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+
     }
 }
