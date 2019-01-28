@@ -5,6 +5,8 @@
     <RootNamespace>UT.product_qc_web</RootNamespace>
 
     <IsPackable>false</IsPackable>
+
+    <Configurations>Debug;Release;PublishAzure</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

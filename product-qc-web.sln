@@ -5,20 +5,25 @@ VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "product-qc-web", "product-qc-web\product-qc-web.csproj", "{38B0CB66-3069-4983-BD39-D6C0A475800E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UT.product-qc-web", "UT.product-qc-web\UT.product-qc-web.csproj", "{D3837AF3-730B-4453-AFC8-25C2F07AE844}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UT.product-qc-web", "UT.product-qc-web\UT.product-qc-web.csproj", "{D3837AF3-730B-4453-AFC8-25C2F07AE844}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		PublishAzure|Any CPU = PublishAzure|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{38B0CB66-3069-4983-BD39-D6C0A475800E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{38B0CB66-3069-4983-BD39-D6C0A475800E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B0CB66-3069-4983-BD39-D6C0A475800E}.PublishAzure|Any CPU.ActiveCfg = PublishAzure|Any CPU
+		{38B0CB66-3069-4983-BD39-D6C0A475800E}.PublishAzure|Any CPU.Build.0 = PublishAzure|Any CPU
 		{38B0CB66-3069-4983-BD39-D6C0A475800E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38B0CB66-3069-4983-BD39-D6C0A475800E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3837AF3-730B-4453-AFC8-25C2F07AE844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3837AF3-730B-4453-AFC8-25C2F07AE844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3837AF3-730B-4453-AFC8-25C2F07AE844}.PublishAzure|Any CPU.ActiveCfg = PublishAzure|Any CPU
+		{D3837AF3-730B-4453-AFC8-25C2F07AE844}.PublishAzure|Any CPU.Build.0 = PublishAzure|Any CPU
 		{D3837AF3-730B-4453-AFC8-25C2F07AE844}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3837AF3-730B-4453-AFC8-25C2F07AE844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

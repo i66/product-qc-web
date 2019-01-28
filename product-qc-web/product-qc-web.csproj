@@ -7,6 +7,11 @@
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
     <SelfContained>false</SelfContained>
     <UserSecretsId>cd7d0933-81e1-4bd6-968e-f327dc051962</UserSecretsId>
+    <Configurations>Debug;Release;PublishAzure</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PublishAzure|AnyCPU'">
+    <DefineConstants>AZURE_POLICY</DefineConstants>
   </PropertyGroup>
 
 
