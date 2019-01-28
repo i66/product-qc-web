@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+此檔案由您的 Web 專案發佈/封裝處理序使用。您可以藉由編輯此 MSBuild 檔案，
+自訂此處理序的行為。若要深入了解，請前往 https://go.microsoft.com/fwlink/?LinkID=208121。 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbDy0AXNZcU2CoBZBOyUdvQAAAAACAAAAAAAQZgAAAAEAACAAAABJpYoM7e2sTH+efpess8E8y9FCtK13TeEUa20M7sXbLgAAAAAOgAAAAAIAACAAAACbytQFdeVXX2EpSqt/RSyUmzo3vLu2VYdNvZV4BrU504AAAACOaa8RPKxlZfVOV2AGDDdzc9u59ObB8gfmSODsa97RphAv1xTqZNACA85gw/2PEijGa9YF/hR0ZChaLfJ9Flq1AfBdczvGv39pgRzjEm5bMJ3+p0FTJBtg+COMx6MHSw85ut7tn8W8zXvj9/QIcPTZTG9Wz+MaB6pnfkDp15hKqkAAAADufxNGDFrWY78Gp1YBpLv1WOHIdds64ZmRqEsLMOT63l/cIlEAIzROlYL44ykF+CxwfYIgxTJO1JRUtt/MJjAd</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="PrtQcWebDatabase">
+      <Value>Data Source=tcp:hexsave.database.windows.net,1433%3bInitial Catalog=Hexsave%3bPersist Security Info=True%3bUser ID=webuse%3bPassword=Hex54232885</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
