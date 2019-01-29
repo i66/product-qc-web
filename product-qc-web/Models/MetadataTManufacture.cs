@@ -22,7 +22,7 @@ namespace product_qc_web.Models
 
         [Required]
         [Display(Name = "工單號碼")]
-        [RegularExpression(@"^\d{12}$", ErrorMessage = "工單號碼為12碼數字。")]
+        [RegularExpression(@"^[1|2|3|4]\d{11}$", ErrorMessage = "工單為12碼數字且首碼為1、2、3或4。")]
         public decimal WorkOrderNum { get; set; }
 
         [Required]
