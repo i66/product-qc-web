@@ -4,4 +4,10 @@
 }
 
 <h1>SendEmail</h1>
+@if (ViewBag.ErrorMsg != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMsg
+    </div>
+}
 
