@@ -17,6 +17,7 @@ namespace product_qc_web.Controllers
         const string DATE_FORMAT = "yyyyMMdd";
         const string EMAIL_PASSWORD = "Hex54232885";
         private string subject = "成品庫存與QC進度_" + DateTime.Now.ToString(DATE_FORMAT);
+        private DateTime weekStamp = DateTime.Now.AddDays(-6);
 
         private readonly HexsaveContext _context;
         public EmailUtilitiesController(HexsaveContext context)
@@ -34,6 +35,7 @@ namespace product_qc_web.Controllers
                                           join m in _context.TManufacture on p.ProductCode equals m.ProductCode
                                           join q in _context.TQualityCheck on new { m.WorkOrderNum, m.MachineNum } equals new { q.WorkOrderNum, q.MachineNum }
                                           join d in _context.TDelivery on new { m.WorkOrderNum, m.MachineNum } equals new { d.WorkOrderNum, d.MachineNum }
+                                          where d.LastModifiedTime >= weekStamp
                                           orderby p.ProductName, q.QcFinishedTime descending, d.WorkOrderNum, d.MachineNum
                                           select new TDelivery()
                                           {
