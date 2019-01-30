@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "product-qc-web", "product-q
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UT.product-qc-web", "UT.product-qc-web\UT.product-qc-web.csproj", "{D3837AF3-730B-4453-AFC8-25C2F07AE844}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-utility", "web-utility\web-utility.csproj", "{1C88CCF3-CD6B-45AA-B06A-C078F8957230}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,12 @@ Global
 		{D3837AF3-730B-4453-AFC8-25C2F07AE844}.PublishAzure|Any CPU.Build.0 = PublishAzure|Any CPU
 		{D3837AF3-730B-4453-AFC8-25C2F07AE844}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3837AF3-730B-4453-AFC8-25C2F07AE844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C88CCF3-CD6B-45AA-B06A-C078F8957230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C88CCF3-CD6B-45AA-B06A-C078F8957230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C88CCF3-CD6B-45AA-B06A-C078F8957230}.PublishAzure|Any CPU.ActiveCfg = Release|Any CPU
+		{1C88CCF3-CD6B-45AA-B06A-C078F8957230}.PublishAzure|Any CPU.Build.0 = Release|Any CPU
+		{1C88CCF3-CD6B-45AA-B06A-C078F8957230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C88CCF3-CD6B-45AA-B06A-C078F8957230}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
