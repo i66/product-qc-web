@@ -84,10 +84,10 @@ namespace product_qc_web.Controllers
             }
 
             msg.Subject = subject;
-            msg.Body = "<p>Hello dear,<p></br>" +
-                "請查收附件，本週成品庫存與QC進度報表：" + subject + "。</br></br>" +
-                "Best regards,</br>" +
-                "Jenkins</br></br>";
+            msg.Body = "<p>Hello dear,</p>" +
+                       "<p>請查收附件，本週成品庫存與QC進度報表：" + subject + "。</p>" +
+                       "<p>Best regards,<br />" +
+                       "Jenkins</p><br />";
             msg.BodyEncoding = Encoding.UTF8;
             msg.SubjectEncoding = Encoding.UTF8;
             msg.IsBodyHtml = true;
