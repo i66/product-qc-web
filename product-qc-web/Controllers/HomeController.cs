@@ -15,11 +15,6 @@ namespace product_qc_web.Controllers
             return RedirectToAction("Index", "TDeliveries");
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
