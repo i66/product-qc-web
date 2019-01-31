@@ -9,6 +9,7 @@ namespace web_utility
         public Frm_ProductQC()
         {
             InitializeComponent();
+            webBrowser_qc.ScriptErrorsSuppressed = true;
             webBrowser_qc.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(DocumentCompletedHandler);
         }
 
