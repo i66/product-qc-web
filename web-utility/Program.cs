@@ -14,9 +14,28 @@ namespace web_utility
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ProductQC());
+            string[] args = Environment.GetCommandLineArgs();
+
+            if ((args.Length != 4))
+            {
+                Environment.Exit(-1);
+            }
+            else
+            {
+                string url = args[1];
+                string from = args[2];
+                string recipients = args[3];
+
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                Frm_ProductQC Frm_QC = new Frm_ProductQC();
+                Frm_QC.Emailing(url, from, recipients);
+
+                Application.Run(Frm_QC);
+                Environment.Exit(0);
+            }
+           
         }
     }
 }
