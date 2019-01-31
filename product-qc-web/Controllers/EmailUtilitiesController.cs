@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
+using web_utility;
 
 namespace product_qc_web.Controllers
 {
@@ -27,10 +28,24 @@ namespace product_qc_web.Controllers
         }
 
         // GET: EmailUtilities
-        public IActionResult SendEmail(string from, string recipients)
+        public IActionResult SendEmail(string encryptMsg)
         {
-            if (string.IsNullOrWhiteSpace(from) || string.IsNullOrWhiteSpace(recipients))
-                return errorResponse("寄件人或收信人不能為空的！！");
+            if (string.IsNullOrWhiteSpace(encryptMsg))
+                return errorResponse("訊息不能為空的！！");
+
+            EmailHandling emailHanding = new EmailHandling();
+
+            Dictionary<string, string> decryptMsg = emailHanding.GetDecryptMsg(encryptMsg);
+
+            if(decryptMsg.Count() < 1)
+                return errorResponse("解密錯誤！！");
+            if (!decryptMsg.ContainsKey(emailHanding.PARA_FROM))
+                return errorResponse("解密錯誤！！沒有寄件人！！");
+            if (!decryptMsg.ContainsKey(emailHanding.PARA_RECIPIENT))
+                return errorResponse("解密錯誤！！沒有收件人！！");
+
+            string from = decryptMsg[emailHanding.PARA_FROM];
+            string recipients = decryptMsg[emailHanding.PARA_RECIPIENT];
 
             List<Type> t = new List<Type> { typeof(MetadataTDelivery), typeof(MetadataTProduct) };
             string fieldName = new FieldUtility().getFieldName(t);
