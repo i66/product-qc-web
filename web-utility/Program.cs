@@ -18,6 +18,7 @@ namespace web_utility
 
             if ((args.Length != 4))
             {
+                Console.WriteLine("Please make sure your inputs are good!!");
                 Environment.Exit(-1);
             }
             else
