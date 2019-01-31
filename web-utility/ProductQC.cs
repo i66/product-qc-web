@@ -9,6 +9,7 @@ namespace web_utility
         public Frm_ProductQC()
         {
             InitializeComponent();
+            webBrowser_qc.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(DocumentCompletedHandler);
         }
 
         public void Emailing(string url, string from, string recipients)
@@ -17,5 +18,10 @@ namespace web_utility
             eh.SendEmail(url, from, recipients);
         }
 
+        private void DocumentCompletedHandler(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            string pageHtml = webBrowser_qc.DocumentText;
+            this.Close();
+        }
     }
 }
