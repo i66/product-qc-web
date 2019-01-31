@@ -18,7 +18,6 @@ namespace web_utility
             EmailHandling emailHandle = new EmailHandling();
             string token = emailHandle.GetEncryptMsg(from, recipients);
 
-            Dictionary<string,string> test = emailHandle.GetDecryptMsg(token);
             if (string.IsNullOrWhiteSpace(token))
                 return;
 
