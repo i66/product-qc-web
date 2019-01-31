@@ -33,19 +33,19 @@ namespace product_qc_web.Controllers
             if (string.IsNullOrWhiteSpace(encryptMsg))
                 return errorResponse("訊息不能為空的！！");
 
-            EmailHandling emailHanding = new EmailHandling();
+            Encryption secret = new Encryption();
 
-            Dictionary<string, string> decryptMsg = emailHanding.GetDecryptMsg(encryptMsg);
+            Dictionary<string, string> decryptMsg = secret.GetDecryptMsg(encryptMsg);
 
             if(decryptMsg.Count() < 1)
                 return errorResponse("解密錯誤！！");
-            if (!decryptMsg.ContainsKey(emailHanding.PARA_FROM))
+            if (!decryptMsg.ContainsKey(secret.PARA_FROM))
                 return errorResponse("解密錯誤！！沒有寄件人！！");
-            if (!decryptMsg.ContainsKey(emailHanding.PARA_RECIPIENT))
+            if (!decryptMsg.ContainsKey(secret.PARA_RECIPIENT))
                 return errorResponse("解密錯誤！！沒有收件人！！");
 
-            string from = decryptMsg[emailHanding.PARA_FROM];
-            string recipients = decryptMsg[emailHanding.PARA_RECIPIENT];
+            string from = decryptMsg[secret.PARA_FROM];
+            string recipients = decryptMsg[secret.PARA_RECIPIENT];
 
             List<Type> t = new List<Type> { typeof(MetadataTDelivery), typeof(MetadataTProduct) };
             string fieldName = new FieldUtility().getFieldName(t);
