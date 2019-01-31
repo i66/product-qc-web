@@ -8,7 +8,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
-using web_utility;
 
 namespace product_qc_web.Controllers
 {

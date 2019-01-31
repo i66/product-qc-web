@@ -6,8 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace web_utility
-{
     public class Encryption
     {
         private readonly string CRYPTOKEY = DateTime.UtcNow.Date.ToString("yyyyMMdd") + "開鎖鑰匙";
@@ -126,4 +124,3 @@ namespace web_utility
             return Encoding.UTF8.GetString(decbuff);
         }
     }
-}
