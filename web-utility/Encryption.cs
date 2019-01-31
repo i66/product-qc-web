@@ -77,7 +77,7 @@ namespace web_utility
                 return null;
 
             byte[] encbuff = Encoding.UTF8.GetBytes(str);
-            return HttpServerUtility.UrlTokenEncode(encbuff);
+            return HttpUtility.UrlEncode(encbuff);
         }
 
         private string Base64ForUrlDecode(string str)
@@ -85,7 +85,7 @@ namespace web_utility
             if (string.IsNullOrEmpty(str))
                 return null;
 
-            byte[] decbuff = HttpServerUtility.UrlTokenDecode(str);
+            byte[] decbuff = HttpUtility.UrlDecodeToBytes(str);
             return Encoding.UTF8.GetString(decbuff);
         }
     }
