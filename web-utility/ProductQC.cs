@@ -23,6 +23,13 @@ namespace web_utility
         {
             string pageHtml = webBrowser_qc.DocumentText;
             this.Close();
+
+            if (pageHtml.Contains("錯誤") || pageHtml.Contains("Error"))
+            {
+                Console.WriteLine("Error happened during sending email!!: " + pageHtml);
+                Environment.Exit(-1);
+            }
+
         }
     }
 }
