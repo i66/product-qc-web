@@ -25,7 +25,7 @@ namespace web_utility
 
             if (string.IsNullOrWhiteSpace(token))
             {
-                Console.WriteLine("token is null !! : " + token);
+                Console.WriteLine("Error happened during encryption !!");
                 Environment.Exit(-1);
             }
            
