@@ -1,6 +1,6 @@
 ﻿namespace web_utility
 {
-    partial class ProductQC
+    partial class Frm_ProductQC
     {
         /// <summary>
         /// Required designer variable.
@@ -33,19 +33,20 @@
             // 
             // webBrowser_qc
             // 
-            this.webBrowser_qc.Location = new System.Drawing.Point(93, 44);
+            this.webBrowser_qc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser_qc.Location = new System.Drawing.Point(0, 0);
             this.webBrowser_qc.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser_qc.Name = "webBrowser_qc";
-            this.webBrowser_qc.Size = new System.Drawing.Size(250, 250);
+            this.webBrowser_qc.Size = new System.Drawing.Size(800, 450);
             this.webBrowser_qc.TabIndex = 0;
             // 
-            // ProductQC
+            // Frm_ProductQC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.webBrowser_qc);
-            this.Name = "ProductQC";
+            this.Name = "Frm_ProductQC";
             this.Text = "Form1";
             this.ResumeLayout(false);
 
