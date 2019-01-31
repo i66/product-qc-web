@@ -1,12 +1,5 @@
-﻿using System;
+﻿using System.Windows.Forms;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace web_utility
 {
@@ -16,5 +9,21 @@ namespace web_utility
         {
             InitializeComponent();
         }
+
+        public void SendEmail(string url, string from, string recipients)
+        {
+            if (string.IsNullOrWhiteSpace(url))
+                return;
+
+            EmailHandling emailHandle = new EmailHandling();
+            string token = emailHandle.GetEncryptMsg(from, recipients);
+
+            Dictionary<string,string> test = emailHandle.GetDecryptMsg(token);
+            if (string.IsNullOrWhiteSpace(token))
+                return;
+
+            webBrowser_qc.Navigate(url + emailHandle.PARA_ARG + emailHandle.ASSIGNER + token);
+        }
+
     }
 }
