@@ -31,4 +31,9 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\web-utility\web-utility.csproj" />
+  </ItemGroup>
+
 </Project>
