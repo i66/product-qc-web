@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 
-    public class Encryption
+public class Encryption
     {
         private readonly string CRYPTOKEY = DateTime.UtcNow.Date.ToString("yyyyMMdd") + "開鎖鑰匙";
         public string PARA_ARG = "encryptMsg";
@@ -70,7 +69,7 @@ using System.Web;
                 {
                     cs.Write(dataByteArray, 0, dataByteArray.Length);
                     cs.FlushFinalBlock();
-                    encrypt = Base64ForUrlEncode(Convert.ToBase64String(ms.ToArray()));
+                    encrypt = Convert.ToBase64String(ms.ToArray());
                 }
             }
             return encrypt;
@@ -82,7 +81,6 @@ using System.Web;
                 return null;
 
             string decrypt = string.Empty;
-            string urlDecrypt = Base64ForUrlDecode(msg);
 
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
@@ -92,7 +90,7 @@ using System.Web;
             aes.Key = key;
             aes.IV = iv;
 
-            byte[] dataByteArray = Convert.FromBase64String(urlDecrypt);
+            byte[] dataByteArray = Convert.FromBase64String(msg);
             using (MemoryStream ms = new MemoryStream())
             {
                 using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
@@ -104,23 +102,5 @@ using System.Web;
             }
           
             return decrypt;
-        }
-
-        private string Base64ForUrlEncode(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-                return null;
-
-            byte[] encbuff = Encoding.UTF8.GetBytes(str);
-            return HttpUtility.UrlEncode(encbuff);
-        }
-
-        private string Base64ForUrlDecode(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-                return null;
-
-            byte[] decbuff = HttpUtility.UrlDecodeToBytes(str);
-            return Encoding.UTF8.GetString(decbuff);
         }
     }
