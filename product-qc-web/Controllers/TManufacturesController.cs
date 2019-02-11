@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using product_qc_web.Lib;
 using product_qc_web.Models;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace product_qc_web.Controllers
 {
+    [Authorize]
     public class TManufacturesController : Controller
     {
         private readonly HexsaveContext _context;
