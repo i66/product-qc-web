@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using product_qc_web.Models;
 using System;
@@ -9,6 +10,7 @@ using X.PagedList;
 
 namespace product_qc_web.Controllers
 {
+    [Authorize]
     public class TDeliveriesController : Controller
     {
         private readonly HexsaveContext _context;
