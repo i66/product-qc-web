@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,22 @@ namespace product_qc_web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAuthentication(o =>
+            {
+                o.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                o.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                o.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddCookie(o => 
+                {
+                    o.LoginPath = "/Home/Index/";
+                })
+                .AddGoogle(o =>
+                {
+                    o.ClientId = Configuration["auth:google:clientid"];
+                    o.ClientSecret= Configuration["auth:google:clientsecret"];
+                });
+
             services.AddDbContext<HexsaveContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PrtQcWebDatabase")));
             services.AddScoped<DbContext, HexsaveContext>();
@@ -50,6 +67,7 @@ namespace product_qc_web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
