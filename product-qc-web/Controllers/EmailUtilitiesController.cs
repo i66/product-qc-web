@@ -39,13 +39,13 @@ namespace product_qc_web.Controllers
                     return errorResponse("Field不能為空！！");
 
                 Encryption secret = new Encryption();
-                Dictionary<string, string> decryptMsg = secret.GetDecryptMsg(encryptMsg);
+                secret.StartToDecryptMsg(encryptMsg);
 
-                if (!isDecryptMsgGood(decryptMsg, secret.PARA_FROM, secret.PARA_RECIPIENT))
+                if (!secret.IsDecryptMsgGood())
                     return errorResponse("解密錯誤！！");
 
-                string from = decryptMsg[secret.PARA_FROM];
-                string recipients = decryptMsg[secret.PARA_RECIPIENT];
+                string from = secret.GetDecryptedFrom();
+                string recipients = secret.GetDecryptedRecipient();
                 string attachedFile = getFileContent();
 
                 using (MailMessage msg = createEmailMsg(from, recipients, attachedFile))
@@ -73,14 +73,6 @@ namespace product_qc_web.Controllers
         {
             ViewData["ErrorMsg"] = "錯誤發生:" + errorMsg;
             return View();
-        }
-
-        private bool isDecryptMsgGood(Dictionary<string, string> decryptMsg, string checkKeyFrom, string checkKeyRecipient)
-        {
-            if (decryptMsg.Count() < 1 || !decryptMsg.ContainsKey(checkKeyFrom) || !decryptMsg.ContainsKey(checkKeyRecipient))
-                return false;
-
-            return true;
         }
 
         private List<TDelivery> getModifiedQcDataInOneWeek()
@@ -118,7 +110,7 @@ namespace product_qc_web.Controllers
 
         private string getFileContent()
         {
-            List<TDelivery>  modifiedQcDataInOneWeek = getModifiedQcDataInOneWeek();
+            List<TDelivery> modifiedQcDataInOneWeek = getModifiedQcDataInOneWeek();
 
             if (modifiedQcDataInOneWeek.Count() == 0)
                 return null;
@@ -136,7 +128,7 @@ namespace product_qc_web.Controllers
         }
 
         private MailMessage createEmailMsg(string from, string recipients, string attachedFileContent)
-        {            
+        {
             MailMessage msg = new MailMessage();
             msg.From = new MailAddress(from);
             foreach (string recipient in recipients.Split(";"))
@@ -148,8 +140,9 @@ namespace product_qc_web.Controllers
             msg.Body = getMsgBody(attachedFileContent);
 
             if (!string.IsNullOrWhiteSpace(attachedFileContent))
+            {
                 msg.Attachments.Add(new Attachment(createFileMemoryStream(attachedFileContent), createFileContentType()));
-            
+            }
             msg.BodyEncoding = Encoding.UTF8;
             msg.SubjectEncoding = Encoding.UTF8;
             msg.IsBodyHtml = true;
