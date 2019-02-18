@@ -98,16 +98,28 @@ namespace product_qc_web.Controllers
             }
 
             msg.Subject = subject;
-            msg.Body = "<p>Hello dear,</p>" +
-                       "<p>請查收附件，本週成品庫存與QC進度報表：" + subject + "。</p>" +
-                       "<p>Best regards,<br />" +
-                       "Jenkins</p><br />";
+
+            if(dataList.Count() == 0)
+            {
+                msg.Body = "<p>Hello dear,</p>" +
+                     "<p>本週無異動的QC庫存資料，沒什麼大事，週末愉快~</p>" +
+                     "<p>Best regards,<br />" +
+                     "Jenkins</p><br />";
+            }
+            else
+            {
+                msg.Body = "<p>Hello dear,</p>" +
+                      "<p>請查收附件，本週成品庫存與QC進度報表：" + subject + "。</p>" +
+                      "<p>Best regards,<br />" +
+                      "Jenkins</p><br />";
+
+                Attachment att = new Attachment(ms, ct);
+                msg.Attachments.Add(att);
+            }
+           
             msg.BodyEncoding = Encoding.UTF8;
             msg.SubjectEncoding = Encoding.UTF8;
             msg.IsBodyHtml = true;
-
-            Attachment att = new Attachment(ms, ct);
-            msg.Attachments.Add(att);
 
             try
             {
