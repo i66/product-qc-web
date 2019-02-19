@@ -38,14 +38,13 @@ namespace product_qc_web.Controllers
                 if (string.IsNullOrWhiteSpace(fileFieldName))
                     return errorResponse("Field不能為空！！");
 
-                Encryption secret = new Encryption();
-                secret.StartToDecryptMsg(encryptMsg);
+                DataModel decryptedData = new Encryption().StartToDecryptMsg(encryptMsg);
 
-                if (!secret.IsDecryptMsgGood())
+                if (!decryptedData.isValid)
                     return errorResponse("解密錯誤！！");
 
-                string from = secret.GetDecryptedFrom();
-                string recipients = secret.GetDecryptedRecipient();
+                string from = decryptedData.from;
+                string recipients = decryptedData.recipient;
                 string attachedFile = getFileContent();
 
                 using (MailMessage msg = createEmailMsg(from, recipients, attachedFile))
