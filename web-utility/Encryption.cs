@@ -5,6 +5,13 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
+public struct DataModel
+{
+    public bool isValid { get; set; }
+    public string from { get; set; }
+    public string recipient { get; set; }
+}
+
 public class Encryption
 {
     private readonly string CRYPTOKEY = DateTime.UtcNow.Date.ToString("yyyyMMdd") + "開鎖鑰匙";
@@ -13,7 +20,6 @@ public class Encryption
     public string PARA_RECIPIENT = "recipients";
     public string ASSIGNER = "=";
     private char SEPARATOR = '&';
-    public Dictionary<string, string> DecryptedMsg { get; set; }
 
     public string GetEncryptMsg(string from, string recipients)
     {
@@ -105,45 +111,17 @@ public class Encryption
         return decrypt;
     }
 
-    public void StartToDecryptMsg(string encryptMsg)
+    public DataModel StartToDecryptMsg(string encryptMsg)
     {
-        DecryptedMsg = getDecryptMsg(encryptMsg);
+        Dictionary<string, string>  decryptedMsg = getDecryptMsg(encryptMsg);
+        if (decryptedMsg.Count() < 1 || !decryptedMsg.ContainsKey(PARA_FROM) || !decryptedMsg.ContainsKey(PARA_RECIPIENT))
+            return new DataModel();
+
+        DataModel decryptData = new DataModel();
+        decryptData.isValid = true;
+        decryptData.from = decryptedMsg[PARA_FROM];
+        decryptData.recipient = decryptedMsg[PARA_RECIPIENT];
+        
+        return decryptData;
     }
-
-    public bool IsDecryptMsgGood()
-    {
-        if (DecryptedMsg.Count() < 1 || !DecryptedMsg.ContainsKey(PARA_FROM) || !DecryptedMsg.ContainsKey(PARA_RECIPIENT))
-            return false;
-
-        return true;
-    }
-
-    public string GetDecryptedFrom()
-    {
-        if (DecryptedMsg == null)
-            return string.Empty;
-
-        if (DecryptedMsg.Count() < 1)
-            return string.Empty;
-
-        if (!DecryptedMsg.ContainsKey(PARA_RECIPIENT))
-            return string.Empty;
-
-        return DecryptedMsg[PARA_FROM];
-    }
-
-    public string GetDecryptedRecipient()
-    {
-        if (DecryptedMsg == null)
-            return string.Empty;
-
-        if (DecryptedMsg.Count() < 1)
-            return string.Empty;
-
-        if (!DecryptedMsg.ContainsKey(PARA_RECIPIENT))
-            return string.Empty;
-
-        return DecryptedMsg[PARA_RECIPIENT];
-    }
-
 }
