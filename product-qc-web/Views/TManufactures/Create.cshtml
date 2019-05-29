@@ -29,7 +29,11 @@
             <div class="form-group">
                 <label asp-for="WorkOrderNum" class="control-label"></label>
                 <br />
-                <span class="text-info" style="font-size:x-small">舊版 - 0, A510 - 1, A511 - 2, A520 - 3, A521 - 4</span>
+                <span class="text-info" style="font-size:x-small">
+                    A510 - 1, A511 - 2, A520 - 3, A521 - 4, 舊版 - 5
+                    <br />
+                    無工單號碼 - yyyymmdd + 當日QC量4碼 (Ex: 201911060005)
+                </span>
                 <input asp-for="WorkOrderNum" class="form-control" />
                 <span asp-validation-for="WorkOrderNum" class="text-danger"></span>
             </div>
