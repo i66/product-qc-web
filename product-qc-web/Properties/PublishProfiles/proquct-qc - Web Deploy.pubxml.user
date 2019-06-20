@@ -6,11 +6,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbDy0AXNZcU2CoBZBOyUdvQAAAAACAAAAAAAQZgAAAAEAACAAAABJpYoM7e2sTH+efpess8E8y9FCtK13TeEUa20M7sXbLgAAAAAOgAAAAAIAACAAAACbytQFdeVXX2EpSqt/RSyUmzo3vLu2VYdNvZV4BrU504AAAACOaa8RPKxlZfVOV2AGDDdzc9u59ObB8gfmSODsa97RphAv1xTqZNACA85gw/2PEijGa9YF/hR0ZChaLfJ9Flq1AfBdczvGv39pgRzjEm5bMJ3+p0FTJBtg+COMx6MHSw85ut7tn8W8zXvj9/QIcPTZTG9Wz+MaB6pnfkDp15hKqkAAAADufxNGDFrWY78Gp1YBpLv1WOHIdds64ZmRqEsLMOT63l/cIlEAIzROlYL44ykF+CxwfYIgxTJO1JRUtt/MJjAd</EncryptedPassword>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA3nOlG/dzZE+PgRKuSIxLFgAAAAACAAAAAAAQZgAAAAEAACAAAAA5auqgQ5RsT55RvFIBm3LJJktA+x8HO81JtXRusTttEQAAAAAOgAAAAAIAACAAAABifQ4RLe7QBEE+5OFm75RDVWKGXjpWF96yjJAwPdUg9IAAAADR5kiLVOIna8W1eJanXzJm0HlkiG+Ri/L9bfVbYM7SHYJUFiM+kGRlqqqL0hqbRCfrCw88H1iNICd0F9SXgfsqOcKXWsXXhwtnk+cs5Eh56NEQa0aYG9KWaO6uhini3R8miXAAaEcuQUvMjby5WxYIXp04zARvfs5+mrmumF18JkAAAAC1+QUtF4jgBUYsF22UVIvW+P/iX0ilxL55eMTa+IwXo6weS06xr1jd4iouDMM+bVO7LnNmfipWbT5V5ndFVAbs</EncryptedPassword>
   </PropertyGroup>
   <ItemGroup>
     <DestinationConnectionStrings Include="PrtQcWebDatabase">
-      <Value>Data Source=tcp:hexsave.database.windows.net,1433%3bInitial Catalog=Hexsave%3bPersist Security Info=True%3bUser ID=webuse%3bPassword=Hex54232885</Value>
+      <Value>Server=tcp:hexsave.database.windows.net,1433%3bInitial Catalog=HexsaveFree%3bPersist Security Info=False%3bUser ID=webuse%3bPassword=Hex54232885</Value>
     </DestinationConnectionStrings>
   </ItemGroup>
 </Project>
