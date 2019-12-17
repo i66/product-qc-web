@@ -43,6 +43,7 @@ namespace product_qc_web
                 {
                     o.ClientId = Configuration["auth:google:clientid"];
                     o.ClientSecret= Configuration["auth:google:clientsecret"];
+                    o.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v1/certs";
                 });
 
             services.AddDbContext<HexsaveContext>(options =>
