@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using product_qc_web.Models;
+using System.Security.Claims;
 
 namespace product_qc_web
 {
@@ -43,6 +45,14 @@ namespace product_qc_web
                 {
                     o.ClientId = Configuration["auth:google:clientid"];
                     o.ClientSecret= Configuration["auth:google:clientsecret"];
+                    o.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+                    o.ClaimActions.Clear();
+                    o.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                    o.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+                    o.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
+                    o.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+                    o.ClaimActions.MapJsonKey("urn:google:profile", "link");
+                    o.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
                 });
 
             services.AddDbContext<HexsaveContext>(options =>
