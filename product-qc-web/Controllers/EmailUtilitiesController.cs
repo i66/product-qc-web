@@ -17,7 +17,7 @@ namespace product_qc_web.Controllers
         const string SMTP_SERVER = "smtp.gmail.com";
         const string CSV_SEPARATOR = ",";
         const string DATE_FORMAT = "yyyyMMdd";
-        const string EMAIL_PASSWORD = "hex54232885";
+        const string EMAIL_PASSWORD = "Hex54232885";
         private string m_subject = "成品庫存與QC進度_" + DateTime.Now.ToString(DATE_FORMAT);
         private readonly HexsaveContext _context;
 
