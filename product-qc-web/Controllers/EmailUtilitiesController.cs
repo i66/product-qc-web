@@ -55,6 +55,7 @@ namespace product_qc_web.Controllers
                         client.Host = SMTP_SERVER;
                         client.Port = 25;
                         client.EnableSsl = true;
+                        client.UseDefaultCredentials = false;
                         client.Credentials = new NetworkCredential(msg.From.Address, EMAIL_PASSWORD);
                         client.Send(msg);
                     }
